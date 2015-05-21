@@ -74,22 +74,24 @@ public class ClosestPoints {
 		int xMiddle = arrX[middle].getX();
 		double best = prevResult.distance;
 		int[] bestPair = new int[2];
-		bestPair[0] = prevResult.index[0];								// solved bug
+		bestPair[0] = prevResult.index[0];								
 		bestPair[1] = prevResult.index[1];
 
 		ArrayList<Integer> indexList = new ArrayList<Integer>();
+		//-------Filtering Step---------------------------------------- 
 		for (int i=0;i < arrY.length ;i++ ) {
 			if (arrY[i].getX() < (xMiddle+best) && arrY[i].getX() > (xMiddle-best))  {
 				indexList.add(i);
 			}
 		}
+		//---------------------------------------------------------
 		int size = indexList.size();
 		if (size<=1) {
 			return prevResult;
 		}
 
 		for (int i=0;i<size-1;i++ ) {
-			for (int j=i+1;j<size ;j++ ) {
+			for (int j=i+1;j<Math.min(size,8) ;j++ ) {
 				double d = distance(arrY,indexList.get(i),indexList.get(j)).distance;
 				if (d < best) {
 				 	best = d;
